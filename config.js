@@ -5,6 +5,7 @@ module.exports = {
         chars : {
             flag : new Fmt("X", "#0000ff", true),
             cursor : new Fmt("-", "#ff00ff", true),
+            bomb : new Fmt("#", "#ff0000", true),
             1 : new Fmt("1", "#ffffff", false),
             2 : new Fmt("2", "#ffffff", false),
             3 : new Fmt("3", "#ffffff", false),
@@ -13,11 +14,11 @@ module.exports = {
             6 : new Fmt("6", "#ffffff", false),
             7 : new Fmt("7", "#ffffff", false),
             8 : new Fmt("8", "#ffffff", false),
+            empty : new Fmt(" ", "#000000", true)
         },
         bg : {
-            char : "█",
             colors : {
-                filled : {
+                wall : {
                     1 : "#00ff00",
                     0 : "#00aa00"
                 },
