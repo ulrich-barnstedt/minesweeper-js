@@ -11,6 +11,7 @@ module.exports = class Game {
         this.width = width;
         this.input = new Input(this.flag.bind(this), this.destroy.bind(this), this.reset.bind(this));
         this.terminal = new Terminal();
+        this.flags = bombs;
 
         initStyles(this.width);
         this.reset();
@@ -29,6 +30,8 @@ module.exports = class Game {
 
     renderCB () {
         this.terminal.draw.d2toBuffer(0, 0, this.field.render());
+        this.terminal.draw.textIntoX(this.size.y + 1, 0, `Flags: ${this.flags}     `);
+
         this.terminal.render();
     }
 
@@ -53,7 +56,9 @@ module.exports = class Game {
     flag () {
         let i = this.getAt();
         if (!i.wall) return;
+
         i.flag = !i.flag;
+        i.flag ? this.flags-- : this.flags++;
 
         this.renderCB();
     }
