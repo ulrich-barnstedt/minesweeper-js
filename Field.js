@@ -20,9 +20,14 @@ module.exports = class Field {
     }
 
     render () {
-        return this.state.map((row, y) => row.map((cell, x) => {
-            return cell.render(y, x);
-        }))
+        return this.state.map((row, y) => {
+            let arr = [];
+            row.forEach((cell, x) => {
+                arr.push(...cell.render(y, x));
+            });
+
+            return arr;
+        });
     }
 
     generateBombs (bombs) {

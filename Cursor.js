@@ -9,46 +9,42 @@ module.exports = class Cursor {
     }
 
     down () {
-        this.remove();
-
         if (this.y + 1 >= this.maxY) return;
-        this.y++;
 
+        this.remove();
+        this.y++;
         this.set();
     }
 
     right () {
-        this.remove();
-
         if (this.x + 1 >= this.maxX) return;
-        this.x++;
 
+        this.remove();
+        this.x++;
         this.set();
     }
 
     up () {
-        this.remove();
-
         if (this.y - 1 < 0) return;
-        this.y--;
 
+        this.remove();
+        this.y--;
         this.set();
     }
 
     left () {
-        this.remove();
-
         if (this.x - 1 < 0) return;
-        this.x--;
 
+        this.remove();
+        this.x--;
         this.set();
     }
 
     remove () {
-        this.field[this.y][this.x].cursor = false;
+        this.field.state[this.y][this.x].cursor = false;
     }
 
     set () {
-        this.field[this.y][this.x].cursor = true;
+        this.field.state[this.y][this.x].cursor = true;
     }
 }

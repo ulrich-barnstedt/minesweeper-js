@@ -11,7 +11,9 @@ module.exports = class CharFormatter {
     }
 
     render (width) {
-        this.o = this.doubleable ? this.char.repeat(width) : this.char.padEnd(width, this.fillChar);
-        this.o = chalk.hex(this.color)(this.o);
+        this.o = this.doubleable ? Array(width).fill(this.char) : [this.char, ...Array(width - 1).fill(this.fillChar)];
+
+        let colorFn = chalk.hex(this.color);
+        this.o = this.o.map(c => colorFn(c));
     }
 }

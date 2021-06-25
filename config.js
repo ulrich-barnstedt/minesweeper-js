@@ -20,13 +20,25 @@ module.exports = {
             colors : {
                 wall : {
                     1 : "#00ff00",
-                    0 : "#00aa00"
+                    0 : "#00dd00"
                 },
                 empty : {
-                    1 : "#000000",
-                    0 : "#444444"
+                    1 : "#222222",
+                    0 : "#333333"
                 }
             }
+        }
+    },
+    keys : {
+        move : {
+            up : "up",
+            down : "down",
+            right : "right",
+            left : "left"
+        },
+        place : {
+            flag : "w",
+            destroy : "d"
         }
     }
 }
