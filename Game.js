@@ -68,6 +68,8 @@ module.exports = class Game {
     }
 
     flag () {
+        if (!this.field.init) return;
+
         let i = this.getPosition(this.cursor.pos);
         if (!i.wall) return;
 

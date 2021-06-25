@@ -3,7 +3,7 @@ const Fmt = require("./CharFormatter");
 module.exports = {
     style : {
         chars : {
-            flag : new Fmt("x", "#000000", true),
+            flag : new Fmt("F", "#000000", false),
             cursor : new Fmt("-", "#ffffff", true),
             bomb : new Fmt("#", "#ff0000", true),
             1 : new Fmt("1", "#0100fe", false),
