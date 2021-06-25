@@ -41,6 +41,7 @@ module.exports = class Field {
             }
 
             this.state[y][x].bomb = true;
+            this.state[y][x].num = -1;
 
             for (let yf = -1; yf < 2; yf++) {
                 for (let xf = -1; xf < 2; xf++) {
