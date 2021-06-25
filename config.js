@@ -33,17 +33,17 @@ module.exports = {
             }
         }
     },
-    keys : {
-        move : {
-            up : "up",
-            down : "down",
-            right : "right",
-            left : "left"
-        },
-        place : {
-            flag : "w",
-            destroy : "d"
-        },
-        reset : "r"
+    keybindings: {
+        up: "move.up",
+        down: "move.down",
+        right: "move.right",
+        left: "move.left",
+        k: "move.up",
+        j: "move.down",
+        h: "move.left",
+        l: "move.right",
+        w: "place.flag",
+        d: "place.destroy",
+        r: "reset"
     }
 }

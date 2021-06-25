@@ -18,31 +18,31 @@ module.exports = class Input {
     }
 
     handler (key) {
-        switch (key.name) {
-            case config.keys.place.flag:
+        switch (config.keybindings[key.name]) {
+            case "place.flag":
                 this.flag();
                 break;
-            case config.keys.place.destroy:
+            case "place.destroy":
                 this.destroy();
                 break;
-            case config.keys.move.up:
+            case "move.up":
                 this.move.up();
                 break;
-            case config.keys.move.down:
+            case "move.down":
                 this.move.down();
                 break;
-            case config.keys.move.right:
+            case "move.right":
                 this.move.right();
                 break;
-            case config.keys.move.left:
+            case "move.left":
                 this.move.left();
                 break;
         }
     }
 
     unblockedHandler (key) {
-        switch (key.name) {
-            case config.keys.reset:
+        switch (config.keybindings[key.name]) {
+            case "reset":
                 this.reset();
                 break;
         }
