@@ -2,16 +2,19 @@ const Rlc = require("readline-char");
 const config = require("./config");
 
 module.exports = class Input {
-    constructor () {
+    constructor (flag, destroy, reset) {
         this.input = new Rlc();
 
-        this.destroy = undefined;
-        this.flag = undefined;
+        this.destroy = destroy;
+        this.flag = flag;
+        this.reset = reset;
+
         this.move = undefined;
         this.block = this.input.block.bind(this.input);
         this.unblock = this.input.unblock.bind(this.input);
 
         this.input.bind(this.handler.bind(this));
+        this.input.bindUnblocked(this.unblockedHandler.bind(this));
     }
 
     handler (key) {
@@ -33,6 +36,14 @@ module.exports = class Input {
                 break;
             case config.keys.move.left:
                 this.move.left();
+                break;
+        }
+    }
+
+    unblockedHandler (key) {
+        switch (key.name) {
+            case config.keys.reset:
+                this.reset();
                 break;
         }
     }

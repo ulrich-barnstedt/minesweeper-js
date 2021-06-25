@@ -9,9 +9,7 @@ module.exports = class Game {
         this.size = size;
         this.bombs = bombs;
         this.width = width;
-        this.input = new Input();
-        this.input.flag = this.flag.bind(this);
-        this.input.destroy = this.destroy.bind(this);
+        this.input = new Input(this.flag.bind(this), this.destroy.bind(this), this.reset.bind(this));
         this.terminal = new Terminal();
 
         initStyles(this.width);
@@ -24,6 +22,7 @@ module.exports = class Game {
         this.field.generateBombs(this.bombs);
         this.cursor = new Cursor(this.size.y, this.size.x, this.field, this.renderCB.bind(this));
 
+        this.renderCB();
         this.input.move = this.cursor;
         this.input.unblock();
     }

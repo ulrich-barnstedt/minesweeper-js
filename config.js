@@ -39,6 +39,7 @@ module.exports = {
         place : {
             flag : "w",
             destroy : "d"
-        }
+        },
+        reset : "r"
     }
 }
