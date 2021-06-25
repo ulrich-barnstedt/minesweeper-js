@@ -52,19 +52,30 @@ module.exports = class Game {
     }
 
     flag () {
-        this.getAt().flag = !this.getAt().flag;
+        let i = this.getAt();
+        if (!i.wall) return;
+        i.flag = !i.flag;
+
         this.renderCB();
     }
 
     destroy () {
-        if (this.getAt().bomb) {
+        let at = this.getAt();
+
+        if (at.bomb) {
             return this.loss();
         }
+        if (at.flag) return;
 
-        this.getAt().wall = false;
+        //this.field.state[y][x] - 2D field (cell reference in cell.js)
+        //this.size - field size
+        //this.getAt() - shorthand for field at cursor x/y
+        //this.cursor.y/x - location of the cursor
+
+        //TODO: algorithm for clearing
+        //>> algorithm goes here
+
+        //render finished state
         this.renderCB();
-
-        //disallow flag destruction
-        //calculate which cells to remove
     }
 }
