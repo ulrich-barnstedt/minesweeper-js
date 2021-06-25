@@ -32,7 +32,6 @@ module.exports = class Game {
 
     reset () {
         this.field = new Field(this.size.y, this.size.x);
-        this.field.generateBombs(this.bombs);
         this.cursor = new Cursor(this.size.y, this.size.x, this.field, this.renderCB.bind(this));
         this.flags = this.bombs;
 
@@ -77,8 +76,9 @@ module.exports = class Game {
     }
 
     destroy () {
-        let at = this.getPosition(this.cursor.pos);
+        if (!this.field.init) this.field.generateBombs(this.bombs, this.cursor.pos);
 
+        let at = this.getPosition(this.cursor.pos);
         if (at.bomb) {
             return this.loss();
         }

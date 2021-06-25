@@ -7,6 +7,7 @@ module.exports = class Field {
         this.x = x;
 
         this.renderBombsBool = false;
+        this.init = false;
         this.state = new Array(this.y).fill(undefined).map(() => new Array(this.x).fill(undefined).map(() => new Cell()));
     }
 
@@ -30,12 +31,14 @@ module.exports = class Field {
         });
     }
 
-    generateBombs (bombs) {
+    generateBombs (bombs, pos) {
+        this.init = true;
+
         for (let i = 0; i < bombs; i++) {
             let y = random(0, this.y);
             let x = random(0, this.x);
 
-            if (this.state[y][x].bomb) {
+            if (this.state[y][x].bomb || Math.abs(pos[0] - y) <= 1 && Math.abs(pos[1] - x) <= 1) {
                 i--;
                 continue;
             }
