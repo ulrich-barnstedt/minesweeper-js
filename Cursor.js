@@ -1,53 +1,51 @@
 module.exports = class Cursor {
     constructor (maxY, maxX, field, renderCb) {
-        this.y = 0;
-        this.x = 0;
-        this.maxY = maxY;
-        this.maxX = maxX;
+        this.pos = [0, 0];
+        this.maxPos = [maxY, maxX];
 
         this.field = field;
         this.renderCb = renderCb;
-        this.field.state[this.y][this.x].cursor = true;
+        this.field.state[this.pos[0]][this.pos[1]].cursor = true;
     }
 
     down () {
-        if (this.y + 1 >= this.maxY) return;
+        if (this.pos[0] + 1 >= this.maxPos[0]) return;
 
         this.remove();
-        this.y++;
+        this.pos[0]++;
         this.set();
     }
 
     right () {
-        if (this.x + 1 >= this.maxX) return;
+        if (this.pos[1] + 1 >= this.maxPos[1]) return;
 
         this.remove();
-        this.x++;
+        this.pos[1]++;
         this.set();
     }
 
     up () {
-        if (this.y - 1 < 0) return;
+        if (this.pos[0] - 1 < 0) return;
 
         this.remove();
-        this.y--;
+        this.pos[0]--;
         this.set();
     }
 
     left () {
-        if (this.x - 1 < 0) return;
+        if (this.pos[1] - 1 < 0) return;
 
         this.remove();
-        this.x--;
+        this.pos[1]--;
         this.set();
     }
 
     remove () {
-        this.field.state[this.y][this.x].cursor = false;
+        this.field.state[this.pos[0]][this.pos[1]].cursor = false;
     }
 
     set () {
-        this.field.state[this.y][this.x].cursor = true;
+        this.field.state[this.pos[0]][this.pos[1]].cursor = true;
         this.renderCb();
     }
 }

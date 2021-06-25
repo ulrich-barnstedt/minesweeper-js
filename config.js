@@ -4,7 +4,7 @@ module.exports = {
     style : {
         chars : {
             flag : new Fmt("X", "#0000ff", true),
-            cursor : new Fmt("-", "#ff00ff", true),
+            cursor : new Fmt("-", "#ffffff", true),
             bomb : new Fmt("#", "#ff0000", true),
             1 : new Fmt("1", "#ffffff", false),
             2 : new Fmt("2", "#ffffff", false),

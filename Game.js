@@ -4,16 +4,22 @@ const Cursor = require("./Cursor");
 const Input = require("./Input");
 const Terminal = require("buffer-render");
 
+/*
+TODO:
+- win detection
+- refactor game class
+- color numbers
+ */
+
 module.exports = class Game {
     directions = [];
 
-    constructor (size = {y : 10, x : 10}, bombs = 20, width = 2) {
+    constructor (size = {y : 16, x : 16}, bombs = 40, width = 2) {
         this.size = size;
         this.bombs = bombs;
         this.width = width;
         this.input = new Input(this.flag.bind(this), this.destroy.bind(this), this.reset.bind(this));
         this.terminal = new Terminal();
-        this.flags = bombs;
 
         initStyles(this.width);
         this.reset();
@@ -29,6 +35,7 @@ module.exports = class Game {
         this.field = new Field(this.size.y, this.size.x);
         this.field.generateBombs(this.bombs);
         this.cursor = new Cursor(this.size.y, this.size.x, this.field, this.renderCB.bind(this));
+        this.flags = this.bombs;
 
         this.renderCB();
         this.input.move = this.cursor;
@@ -52,11 +59,7 @@ module.exports = class Game {
 
     }
 
-    getAt () {
-        return this.field.state[this.cursor.y][this.cursor.x];
-    }
-
-    getPosition([ x, y ]) {
+    getPosition([ y, x ]) {
         return this.field.state[y][x];
     }
 
@@ -64,12 +67,8 @@ module.exports = class Game {
         return pos2 => [ pos1[0] + pos2[0], pos1[1] + pos2[1] ];
     }
 
-    setAt (v) {
-        this.field.state[this.cursor.y][this.cursor.x] = v;
-    }
-
     flag () {
-        let i = this.getAt();
+        let i = this.getPosition(this.cursor.pos);
         if (!i.wall) return;
 
         i.flag = !i.flag;
@@ -79,24 +78,19 @@ module.exports = class Game {
     }
 
     destroy () {
-        let at = this.getAt();
+        let at = this.getPosition(this.cursor.pos);
 
         if (at.bomb) {
             return this.loss();
         }
         if (at.flag) return;
 
-        const { x, y } = this.cursor;
-        this.clear([ x, y ]);
-
-        // TODO: check for win
-
-        //render finished state
+        this.clear(this.cursor.pos);
         this.renderCB();
     }
 
     isValid(position) {
-        return position[0] >= 0 && position[0] < this.field.state.length && position[1] >= 0 && position[1] < this.field.state[0].length;
+        return position[1] >= 0 && position[1] < this.field.state.length && position[0] >= 0 && position[0] < this.field.state[0].length;
     }
 
     clear(position) {
