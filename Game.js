@@ -8,7 +8,6 @@ const Terminal = require("buffer-render");
 TODO:
 - win detection
 - refactor game class
-- color numbers
  */
 
 module.exports = class Game {
