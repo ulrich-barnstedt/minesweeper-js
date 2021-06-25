@@ -41,6 +41,13 @@ module.exports = class Field {
             }
 
             this.state[y][x].bomb = true;
+
+            for (let yf = -1; yf < 2; yf++) {
+                for (let xf = -1; xf < 2; xf++) {
+                    if (this.state[yf + y] === undefined || this.state[yf + y][xf + x] === undefined) continue;
+                    this.state[yf + y][xf +x].num++;
+                }
+            }
         }
     }
 }

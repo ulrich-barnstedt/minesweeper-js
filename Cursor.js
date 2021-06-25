@@ -1,11 +1,13 @@
 module.exports = class Cursor {
-    constructor (maxY, maxX, field) {
+    constructor (maxY, maxX, field, renderCb) {
         this.y = 0;
         this.x = 0;
         this.maxY = maxY;
         this.maxX = maxX;
 
         this.field = field;
+        this.renderCb = renderCb;
+        this.field.state[this.y][this.x].cursor = true;
     }
 
     down () {
@@ -46,5 +48,6 @@ module.exports = class Cursor {
 
     set () {
         this.field.state[this.y][this.x].cursor = true;
+        this.renderCb();
     }
 }

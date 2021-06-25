@@ -9,7 +9,7 @@ module.exports = class Cell {
         this.wall = true;
 
         this.renderBomb = false;
-        this.num = false;
+        this.num = 0;
     }
 
     bgCalculate (y, x) {
@@ -31,7 +31,7 @@ module.exports = class Cell {
         if (this.cursor) fgt = config.style.chars.cursor.o; else
         if (this.renderBomb && this.bomb) fgt = config.style.chars.bomb.o; else
         if (this.flag) fgt = config.style.chars.flag.o; else
-        if (this.num !== false) fgt = config.style.chars[this.num];
+        if (this.num !== 0 && !this.wall) fgt = config.style.chars[this.num].o;
 
         return this.bgCalculate(y, x)(fgt);
     }

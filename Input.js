@@ -8,8 +8,8 @@ module.exports = class Input {
         this.destroy = undefined;
         this.flag = undefined;
         this.move = undefined;
-        this.block = this.input.block;
-        this.unblock = this.input.unblock;
+        this.block = this.input.block.bind(this.input);
+        this.unblock = this.input.unblock.bind(this.input);
 
         this.input.bind(this.handler.bind(this));
     }
