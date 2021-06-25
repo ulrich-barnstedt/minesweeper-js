@@ -5,6 +5,8 @@ const Input = require("./Input");
 const Terminal = require("buffer-render");
 
 module.exports = class Game {
+    directions = [];
+
     constructor (size = {y : 10, x : 10}, bombs = 20, width = 2) {
         this.size = size;
         this.bombs = bombs;
@@ -16,6 +18,11 @@ module.exports = class Game {
         initStyles(this.width);
         this.reset();
         this.input.init();
+
+        for (let i = 0; i < 4; i++) {
+            this.directions[i]     = [ Math.floor(i / 2) % 2, i % 2 ].map(x => 2 * x - 1);
+            this.directions[4 + i] = [ (i + 1) % 2, i % 2 ].map(x => x * (2 * (i >= 2) - 1));
+        }
     }
 
     reset () {
@@ -49,6 +56,14 @@ module.exports = class Game {
         return this.field.state[this.cursor.y][this.cursor.x];
     }
 
+    getPosition([ x, y ]) {
+        return this.field.state[y][x];
+    }
+
+    addPosition(pos1) {
+        return pos2 => [ pos1[0] + pos2[0], pos1[1] + pos2[1] ];
+    }
+
     setAt (v) {
         this.field.state[this.cursor.y][this.cursor.x] = v;
     }
@@ -71,15 +86,27 @@ module.exports = class Game {
         }
         if (at.flag) return;
 
-        //this.field.state[y][x] - 2D field (cell reference in cell.js)
-        //this.size - field size
-        //this.getAt() - shorthand for field at cursor x/y
-        //this.cursor.y/x - location of the cursor
+        const { x, y } = this.cursor;
+        this.clear([ x, y ]);
 
-        //TODO: algorithm for clearing
-        //>> algorithm goes here
+        // TODO: check for win
 
         //render finished state
         this.renderCB();
+    }
+
+    isValid(position) {
+        return position[0] >= 0 && position[0] < this.field.state.length && position[1] >= 0 && position[1] < this.field.state[0].length;
+    }
+
+    clear(position) {
+        if (!this.isValid(position)) return;
+        const cell = this.getPosition(position);
+
+        if (!cell.wall) return;
+        cell.wall = false;
+
+        if (cell.num) return;
+        this.directions.map(this.addPosition(position)).forEach(this.clear.bind(this));
     }
 }
