@@ -7,7 +7,7 @@ module.exports = class Cell {
         this.cursor = false;
         this.flag = false;
         this.wall = true;
-
+        this.win = false;
         this.renderBomb = false;
         this.num = 0;
     }
@@ -16,11 +16,9 @@ module.exports = class Cell {
         let i = (y % 2 + x) % 2;
 
         let colorFn;
-        if (this.wall) {
-            colorFn = chalk.bgHex(config.style.bg.colors.wall[i]);
-        } else {
-            colorFn = chalk.bgHex(config.style.bg.colors.empty[i]);
-        }
+        if (this.win) colorFn = chalk.bgHex(config.style.bg.colors.win[i]);
+        if (this.wall) colorFn = chalk.bgHex(config.style.bg.colors.wall[i]);
+        if (!colorFn) colorFn = chalk.bgHex(config.style.bg.colors.empty[i]);
 
         return (a) => a.map(c => colorFn(c));
     }

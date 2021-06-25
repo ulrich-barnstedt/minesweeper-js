@@ -6,18 +6,16 @@ module.exports = class Field {
         this.y = y;
         this.x = x;
 
-        this.renderBombsBool = false;
         this.init = false;
         this.state = new Array(this.y).fill(undefined).map(() => new Array(this.x).fill(undefined).map(() => new Cell()));
     }
 
     set renderBombs (value) {
-        this.renderBombsBool = value;
         this.state.forEach(row => row.forEach(cell => cell.renderBomb = value));
     }
 
-    get renderBombs () {
-        return this.renderBombsBool;
+    set winState (value) {
+        this.state.forEach(row => row.forEach(cell => cell.win = value));
     }
 
     render () {
@@ -53,5 +51,9 @@ module.exports = class Field {
                 }
             }
         }
+    }
+
+    wallCount () {
+        return this.state.reduce((ac, row) => ac + row.reduce(((ac, cell) => cell.wall ? ac + 1 : ac), 0), 0);
     }
 }

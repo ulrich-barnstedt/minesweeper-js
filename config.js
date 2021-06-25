@@ -25,6 +25,10 @@ module.exports = {
                 empty : {
                     1 : "#bbbbbb",
                     0 : "#aaaaaa"
+                },
+                win : {
+                    0 : "#000000",
+                    1 : "#000000"
                 }
             }
         }

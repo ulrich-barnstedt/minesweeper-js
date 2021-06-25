@@ -4,12 +4,6 @@ const Cursor = require("./Cursor");
 const Input = require("./Input");
 const Terminal = require("buffer-render");
 
-/*
-TODO:
-- win detection
-- refactor game class
- */
-
 module.exports = class Game {
     directions = [];
 
@@ -53,9 +47,17 @@ module.exports = class Game {
         this.renderCB();
     }
 
-    win () {
+    dtcWin () {
+        if (this.field.wallCount() !== this.bombs) return false;
 
+        this.field.winState = true;
+        this.input.block();
+        this.renderCB();
+
+        return true;
     }
+
+    //--------------
 
     getPosition([ y, x ]) {
         return this.field.state[y][x];
@@ -85,6 +87,8 @@ module.exports = class Game {
         if (at.flag) return;
 
         this.clear(this.cursor.pos);
+        if (this.dtcWin()) return;
+
         this.renderCB();
     }
 
