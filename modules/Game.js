@@ -1,5 +1,5 @@
 const Field = require("./Field");
-const initStyles = require("./initStyles");
+const initStyles = require("../styles/initStyles");
 const Cursor = require("./Cursor");
 const Input = require("./Input");
 const Terminal = require("buffer-render");

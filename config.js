@@ -1,4 +1,4 @@
-const Fmt = require("./CharFormatter");
+const Fmt = require("./styles/CharFormatter");
 
 module.exports = {
     style : {
@@ -45,5 +45,12 @@ module.exports = {
         w: "place.flag",
         d: "place.destroy",
         r: "reset"
+    },
+    game : {
+        bombs : 40,
+        size : {
+            y : 16,
+            x : 16
+        }
     }
 }

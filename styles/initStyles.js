@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("../config");
 
 module.exports = (width) => {
     for (let key in config.style.chars) {

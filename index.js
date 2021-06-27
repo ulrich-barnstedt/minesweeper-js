@@ -1,3 +1,4 @@
-const Game = require("./Game");
+const Game = require("./modules/Game");
+const config = require("./config");
 
-let g = new Game();
+new Game(config.game.size, config.game.bombs);

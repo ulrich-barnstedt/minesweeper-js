@@ -1,5 +1,5 @@
 const Rlc = require("readline-char");
-const config = require("./config");
+const config = require("../config");
 
 module.exports = class Input {
     constructor (flag, destroy, reset) {
