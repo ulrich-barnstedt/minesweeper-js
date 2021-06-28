@@ -102,7 +102,7 @@ module.exports = class Game {
         if (!this.isValid(position)) return;
         const cell = this.getPosition(position);
 
-        if (!cell.wall) return;
+        if (!cell.wall || cell.flag) return;
         cell.wall = false;
 
         if (cell.num) return;
