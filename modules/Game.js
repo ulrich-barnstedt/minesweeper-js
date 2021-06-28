@@ -80,7 +80,7 @@ module.exports = class Game {
     }
 
     destroy () {
-        if (!this.field.init) this.field.generateBombs(this.bombs, this.cursor.pos); 
+        if (!this.field.init) this.field.generateBombs(this.bombs, this.cursor.pos);
 
         let at = this.getPosition(this.cursor.pos);
         if (at.bomb) {
